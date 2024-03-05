@@ -7,7 +7,7 @@ body {
     height: 100px;
     background-color: #2741B2;
     margin: 0;
-    position: fixed;
+    /* position: fixed; */
     bottom: 0;
     z-index: 1000;
 }

@@ -56,12 +56,6 @@ body {
     width: 100%;
 }
 
-.nav-links a.active-link::after {
-    width: 100%;
-  }
-
-/*  */
-
 .logo {
     height: 70px;
     margin-left: 50px;
