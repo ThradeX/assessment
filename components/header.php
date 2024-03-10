@@ -40,8 +40,8 @@
 
             if(isset($_SESSION['id'])) {
               echo '<div class="user">
+                <a href="checkout.php">CART</a>
                 <a href="?logout">LOGOUT</a>
-                <a href="checkout.php"><img alt="CART"/></a>
               </div">';
             } else {
               echo '<a href="./login.php">LOGIN</a>';

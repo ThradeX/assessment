@@ -52,6 +52,12 @@ values ("testeShow6", "testeArtista6", "https://cdn.vox-cdn.com/thumbor/8fHlyH3t
 
 select * from shows;
 
--- delete from shows where id_show < 10;
+CREATE TABLE purchases (
+    id_purchase INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    total_amount DECIMAL(10, 2) NOT NULL,
+    payment_option VARCHAR(50) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id_user)
+);
 
--- drop table shows;
+select * from purchases;

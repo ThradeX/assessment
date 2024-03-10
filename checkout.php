@@ -3,13 +3,21 @@ include('./database/connection.php');
 
 require_once './components/header.php';
 
+if (!isset($_SESSION['quantity'])) {
+    $_SESSION['quantity'] = array();
+}
+
 if (isset($_COOKIE['cart'])) {
     $showIds = json_decode($_COOKIE['cart'], true);
 
-    $inIds = implode(',', array_map('intval', $showIds));
-    $sql = "SELECT * FROM shows WHERE id_show IN ($inIds)";
-    $res = $mysqli->query($sql);
+    if (!empty($showIds)) {
+        $inIds = implode(',', array_map('intval', $showIds));
+        $sql = "SELECT * FROM shows WHERE id_show IN ($inIds)";
+        $res = $mysqli->query($sql);
+
+        if ($res && $res->num_rows > 0) {
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,60 +37,117 @@ if (isset($_COOKIE['cart'])) {
                     location.reload();
                 }
             };
-            xhr.send();
+            hr.send();x
         }
 
-        function redirectToPayment() {
+        function redirectToPayment(totalAmount) {
             var showIds = JSON.parse('<?php echo json_encode($showIds); ?>');
-            var queryString = showIds.map(id => 'showIds[]=' + id).join('&');
+            var quantities = JSON.parse('<?php echo json_encode($_SESSION['quantity']); ?>');
+            var queryString = '';
+
+            // Adiciona os IDs dos shows e suas quantidades à queryString
+            showIds.forEach(function(showId, index) {
+                queryString += 'showIds[]=' + showId + '&quantity[]=' + quantities[showId];
+                if (index < showIds.length - 1) {
+                    queryString += '&'; // Adiciona '&' para separar os parâmetros
+                }
+            });
+
+            queryString += '&totalAmount=' + totalAmount; // Adiciona o totalAmount à queryString
+
             window.location.href = 'payment.php?' + queryString;
         }
 
-        // function clearCart() {
-        //     var xhr = new XMLHttpRequest();
-        //     xhr.open('GET', './components/clear-cart.php', true);
-        //     xhr.onload = function() {
-        //         if (xhr.status == 200) {
-        //             console.log(xhr.responseText); // Exibir a resposta do servidor (opcional)
-        //             // Recarregar a página para limpar o carrinho após a operação
-        //             location.reload();
-        //         }
-        //     };
-        //     xhr.send();
-        // }
+        function updateQuantity(showId, newQuantity) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', './components/update-quantity.php?showId=' + showId + '&quantity=' + newQuantity, true);
+            xhr.onload = function() {
+                if (xhr.status == 200) {
+                    console.log(xhr.responseText); // Exibir a resposta do servidor (opcional)
+                    location.reload(); // Recarregar a página para refletir a atualização da quantidade
+                }
+            };
+            xhr.send();
+        }
     </script>
 </head>
 <body>
-    <h1>Seu Carrinho</h1>
 
-    <ul class="cart-list">
+    <div class="checkout-content">
+    <h1>Your Cart</h1>
         <?php
-        while ($row = $res->fetch_object()) {
+        $totalCartAmount = 0; // Variável para armazenar o total geral do carrinho
+
+        $sql = "SELECT *, (s.max_tickets - s.bought) AS available_tickets FROM shows s WHERE s.id_show IN ($inIds)";
+        $res = $mysqli->query($sql);
+
+        // Loop para exibir os shows no carrinho
+        while ($row = $res->fetch_assoc()) {
+            $showId = $row['id_show'];
+            $quantity = isset($_SESSION['quantity'][$showId]) ? $_SESSION['quantity'][$showId] : 0;
+            $totalAmount = $row['price'] * $quantity;
+            $totalCartAmount += $totalAmount;
+            $availableTickets = $row['available_tickets'];
+
             echo '
-            <li class="cart-item">
-                <!-- Seus códigos HTML para exibir informações do show no carrinho -->
-                <div class="cart-item-details">
-                    <h2>' . $row->name_show . '</h2>
-                    <!-- Adicione outras informações do show aqui -->
+            <div class="card">
+
+                <div class="image" style="background-image: url(' . $row['image_show'] . '); background-size: cover;"></div>
+            
+                <div class="info-rows">
+                    <div class="id-row">
+                        <h2>ID</h2>
+                        <p class="id">' . $row['id_show'] . '</p>
+                    </div>
+                    <div class="name-row">
+                        <h2>NAME</h2>
+                        <p class="name">' . $row['name_show'] . '</p>
+                    </div>
+                    <div class="price-row">
+                        <h2>PRICE</h2>
+                        <p class="price">$' . $row['price'] . '</p>
+                    </div>
+                    <div class="quantity-row">
+                        <h2>QUANTITY</h2>
+                        <input type="number" id="quantity_' . $row['id_show'] . '" value="' . $quantity . '" min="1" max="' . $availableTickets . '" onchange="updateQuantity(' . $row['id_show'] . ', this.value)" oninput="validity.valid||(value=``)">
+                    </div>
                 </div>
-                <div class="cart-item-actions">
-                    <button onclick="removeItem(' . $row->id_show . ')">REMOVE ITEM</button>
-                </div>
-            </li>';
+                
+            </div>';
         }
         ?>
-    </ul>
 
-    <button onclick="redirectToPayment()">CONFIRM</button>
+        <div class="total-row">
+            <h2>TOTAL:</h2>
+            <p>$<?php echo $totalCartAmount;?></p>
+        </div>
 
-    <!-- <button onclick="clearCart()">CLEAR CART</button> -->
+        <button onclick="redirectToPayment(<?php echo $totalCartAmount; ?>)">Confirm</button>
+    </div>
+
 </body>
+
 </html>
 
 <?php
+        } else {
+            echo '<div class="error" style="background-color: red;">
+                <h1>Your Cart</h1>
+                <p>No shows on your cart</p>
+            </div>';
+        }
+    } else {
+        echo '
+        <div class="error">
+            <h1>Your Cart</h1>
+            <p>Your cart is empty</p>
+        </div>';
+    }
 } else {
-    echo '<h1>Seu Carrinho</h1>';
-    echo '<p>O seu carrinho está vazio.</p>';
+    echo '<div class="error">
+        <h1>Your Cart</h1>
+        <p>Your cart is empty</p>
+    </div>';
 }
 
 require_once './components/footer.php';
