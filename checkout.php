@@ -7,15 +7,13 @@ if (!isset($_SESSION['quantity'])) {
     $_SESSION['quantity'] = array();
 }
 
+$inIds = '';
+
 if (isset($_COOKIE['cart'])) {
     $showIds = json_decode($_COOKIE['cart'], true);
 
     if (!empty($showIds)) {
         $inIds = implode(',', array_map('intval', $showIds));
-        $sql = "SELECT * FROM shows WHERE id_show IN ($inIds)";
-        $res = $mysqli->query($sql);
-
-        if ($res && $res->num_rows > 0) {
 ?>
 
 
@@ -122,7 +120,7 @@ if (isset($_COOKIE['cart'])) {
             <p>$<?php echo $totalCartAmount;?></p>
         </div>
 
-        <button onclick="redirectToPayment(<?php echo $totalCartAmount; ?>)">Confirm</button>
+        <button class="confirm-btn" onclick="redirectToPayment(<?php echo $totalCartAmount; ?>)">Confirm</button>
     </div>
 
 </body>
@@ -130,21 +128,10 @@ if (isset($_COOKIE['cart'])) {
 </html>
 
 <?php
-        } else {
-            echo '<div class="error" style="background-color: red;">
-                <h1>Your Cart</h1>
-                <p>No shows on your cart</p>
-            </div>';
-        }
-    } else {
-        echo '
-        <div class="error">
-            <h1>Your Cart</h1>
-            <p>Your cart is empty</p>
-        </div>';
     }
 } else {
-    echo '<div class="error">
+    echo '
+    <div class="empty-cart">
         <h1>Your Cart</h1>
         <p>Your cart is empty</p>
     </div>';

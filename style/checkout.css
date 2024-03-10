@@ -7,9 +7,9 @@
     align-items: center;
 }
 
-.checkout-content h1 {
+h1 {
     margin-top: 50px;
-    margin-bottom: 0;
+    margin-bottom: 30px;
     color: #2741B2;
     font-size: 4em;
 }
@@ -63,13 +63,10 @@
     text-align: center;
 }
 
-.checkout-content button {
-    margin-bottom: 50px;
-}
-
 .total-row {
     text-align: center;
     color: #2741B2;
+    margin-top: 50px;
 }
 
 .total-row p {
@@ -83,14 +80,14 @@
     padding: 0 30px 0 30px;
     border: none;
     border-radius: 30px;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
     color: #fff;
     background-color: #2741B2;
     cursor: pointer;
 }
 
-.error {
-    height: 90vh;
+.empty-cart {
+    background-color: aqua;
 }
 
 .error h1 {
