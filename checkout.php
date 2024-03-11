@@ -132,8 +132,8 @@ if (isset($_COOKIE['cart'])) {
 } else {
     echo '
     <div class="empty-cart">
-        <h1>Your Cart</h1>
-        <p>Your cart is empty</p>
+        <h1 style="margin-top: 50px; margin-bottom: 30px; color: #2741B2; font-size: 4em; text-align: center">Your Cart</h1>
+        <h2 style="text-align: center;">Your cart is empty</h2>
     </div>';
 }
 
