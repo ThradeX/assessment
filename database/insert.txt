@@ -1,0 +1,21 @@
+use riverside;
+
+insert into shows (name_show, name_artist, image_show, description_show, price, max_tickets)
+values
+("After Hours til Dawn", "The Weeknd", "./images/artists/the-weeknd.jpg", "November 20, 2023, – Suncorp Stadium, Brisbane OLD
+November 21, 2023, – Suncorp Stadium, Brisbane QLD New Show
+December 1, 2023, – Marvel Stadium, Melbourne VIC
+December 2, 2023, – Marvel Stadium, Melbourne VIC", 220, 350),
+("Ages & Stages Tour", "Tom Jones", "./images/artists/tom-jones.jpg", "March 21, 2024, – Kings Park & Botanic Garden, Perth WA
+March 23, 2024, – Centennial Vineyards, Bowral NSW
+March 26, 2026, – The Drive, Adelaide SA", 250, 250),
+("If Y’all Weren’t Here, I’d be Crying", "Post Malone", "./images/artists/post-malone.jpg", "November 23, 2023, – RNA Showgrounds, Brisbane QLD
+November 29, 2023, – The Domain, Sydney NSW
+November 30, 2023, – Melbourne Showgrounds, Melbourne VIC", 300, 150),
+("5th World Tour READY TO BE", "TWICE", "./images/artists/twice.jpg", "November 4, 2023, – Marvel Stadium, Melbourne VIC", 200, 100),
+("The End Is Nero", "Queens Of The Stone Age", "./images/artists/queens-of-the-stone-age.jpg", "February 13, 2024, The Drive, Adelaide SA
+February 16, 2024, Mona Lawns, Hobart TAS
+February 18, 2024, Lookout, Torquay Common, Torquay VIC
+February 24, 2024, Lookout, Broadwater Parklands, Gold Coast QLD", 150, 120),
+("+LIVE & Incubus", "Incubus", "./images/artists/incubus.jpg", "April 9, 2024, – WIN Entertainment Centre, Wollongong NSW
+April 17, 2024, – The Drive, Adelaide SA", 120, 180);
