@@ -1,0 +1,33 @@
+create database if not exists riverside;
+use riverside;
+
+create table if not exists users (
+  id_user int not null auto_increment,
+  first_name varchar(20) not null,
+  last_name varchar(20) not null,
+  username varchar(20) not null unique,
+  password varchar(100) not null,
+  address varchar(255) not null,
+  phone_number varchar(10) not null,
+  primary key (id_user)
+);
+
+create table if not exists shows (
+	id_show int not null auto_increment,
+    name_show varchar(50) not null,
+    name_artist varchar(50) not null,
+    image_show varchar(255) not null,
+    description_show varchar(500) not null,
+    price float not null,
+    max_tickets int not null,
+    bought int not null default 0,
+    primary key (id_show)
+);
+
+CREATE TABLE purchases (
+    id_purchase INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    total_amount DECIMAL(10, 2) NOT NULL,
+    payment_option VARCHAR(50) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id_user)
+);
