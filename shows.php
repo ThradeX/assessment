@@ -3,14 +3,12 @@ include('./database/connection.php');
 
 require_once './components/header.php';
 
-$search = isset($_GET['search']) ? $mysqli->real_escape_string($_GET['search']) : '';
+$search = isset($_GET['search']) ? $mysqli->real_escape_string($_GET['search']) : ''; // Getting search query from URL and sanitizing it.
 
-$filter = isset($_GET['others']) ? $mysqli->real_escape_string($_GET['others']) : 'all';
+$sql = "SELECT * FROM shows WHERE name_show LIKE '%$search%'"; // SQL query to select shows based on search query.
 
-$sql = "SELECT * FROM shows WHERE name_show LIKE '%$search%'";
-
-$res = $mysqli->query($sql);
-$qtd = $res->num_rows;
+$res = $mysqli->query($sql); // Executing the SQL query.
+$qtd = $res->num_rows; // Getting the number of rows returned by the query.
 ?>
 
 <!DOCTYPE html>
@@ -52,11 +50,11 @@ $qtd = $res->num_rows;
             <div class="card-list-content">
                 <ul class="card-list">
                     <?php
-                        if ($qtd > 0) {
-                            while ($row = $res->fetch_object()) {
-                                $available = $row->max_tickets - $row->bought;
-                                echo ' <li id="show_<?php echo $row->id_show; ?>" class="card">
-                                        <div class="overlay" onclick="addToCart(' . $row->id_show .')"></div>
+                        if ($qtd > 0) { // Checking if there are shows available
+                            while ($row = $res->fetch_object()) { // Iterating through the result set
+                                $available = $row->max_tickets - $row->bought; // Calculating available tickets
+                                echo ' <li id="show_<?php echo $row->id_show; ?>" class="card"> <!-- Starting a list item -->
+                                        <div class="overlay" onclick="addToCart(' . $row->id_show .')"></div> <!-- Adding overlay for click event -->
                                         <div class="card-image">
                                             <img src="' . $row->image_show . '" alt="show cover">
                                         </div>
@@ -66,11 +64,11 @@ $qtd = $res->num_rows;
                                         </div>
                                         <div class="card-description">
                                 ';
-                                $description_lines = explode("\n", $row->description_show);
-                                foreach ($description_lines as $line) {
-                                    echo '<p>' . $line . '</p>';
+                                $description_lines = explode("\n", $row->description_show); // Splitting description into lines
+                                foreach ($description_lines as $line) { // Iterating through each description line
+                                    echo '<p>' . $line . '</p>'; // Displaying each description line
                                 }
-                                echo '</div>
+                                echo '</div> <!-- Closing card-description div -->
                                     <div class="price">
                                         <p>' . $available . ' tickets left</p>
                                         <h4>$' . $row->price . '</h4>

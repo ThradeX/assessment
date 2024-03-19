@@ -1,9 +1,9 @@
 <?php
-    if (!isset($_SESSION)) {
+    if (!isset($_SESSION)) { // Start session if not already started
         session_start();
     }
 
-    if(isset($_GET['logout'])) {
+    if(isset($_GET['logout'])) { // Logout functionality: If logout parameter is present in the URL, destroy the session and redirect to index.php
         session_destroy();
         header("Location: index.php");
         exit;
@@ -38,12 +38,13 @@
               session_start();
             }
 
-            if(isset($_SESSION['id'])) {
+            if(isset($_SESSION['id'])) { // Check if user is logged in
+              // If logged in, display cart and logout links
               echo '<div class="user">
                 <a href="checkout.php">CART</a>
                 <a href="?logout">LOGOUT</a>
               </div">';
-            } else {
+            } else { // If not logged in, display login link
               echo '<a href="./login.php">LOGIN</a>';
             }
           ?>

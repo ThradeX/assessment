@@ -3,27 +3,25 @@ include('./database/connection.php');
 
 require_once './components/header.php';
 
-if (isset($_SESSION['id']) && isset($_SESSION['name'])) {
+if (isset($_SESSION['id']) && isset($_SESSION['name'])) { // Checking if the user is logged in
     $userId = $_SESSION['id'];
     $userName = $_SESSION['name'];
 
-    // Consultar o banco de dados para obter os detalhes do usuário
+    // Query the database to get user details
     $sql = "SELECT * FROM users WHERE id_user = $userId";
     $result = $mysqli->query($sql);
 
-    if ($result->num_rows > 0) {
+    if ($result->num_rows > 0) { // If user details are found
         $user = $result->fetch_assoc();
         $firstName = $user['first_name'];
         $lastName = $user['last_name'];
         $address = $user['address'];
         $phone = $user['phone_number'];
-    } else {
-        // Usuário não encontrado no banco de dados
-        // Você pode manipular isso de acordo com a sua lógica de negócios
     }
+
     $totalAmount = $_GET['totalAmount'];
 } else {
-    // O usuário não está logado, redirecione para a página de login
+    // User is not logged in, redirect to login page
     header("Location: login.php");
     exit();
 }
@@ -38,7 +36,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['name'])) {
     <link rel="stylesheet" href="./style/payment.css">
 
     <script>
-        function cancelPayment() {
+        function cancelPayment() { // Function to cancel payment and redirect to cart page
             window.location.href = 'cart.php';
         }
     </script>
@@ -46,7 +44,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['name'])) {
 <body>
     <div class="payment-container">
         <h1>Checkout Payment</h1>
-        <form action="./complete.php" method="post">
+        <form action="./complete.php" method="post"> <!-- Form for payment details -->
             <div class="form-group">
                 <label for="first_name">First Name</label>
                 <input type="text" id="first_name" name="first_name" value="<?php echo $firstName; ?>" required readonly>

@@ -3,12 +3,12 @@ require_once './components/header.php';
 
 include('./database/connection.php');
 
-if (isset($_POST['username']) && isset($_POST['password'])) {
-    if (empty($_POST['username'])) {
+if (isset($_POST['username']) && isset($_POST['password'])) { // Checking if form fields are submitted
+    if (empty($_POST['username'])) { // Displaying error if username field is empty
         echo "Please fill in the username field";
-    } elseif (empty($_POST['password'])) {
+    } elseif (empty($_POST['password'])) { // Displaying error if password field is empty
         echo "Please fill in the password field";
-    } elseif ($_POST['password'] !== $_POST['c-password']) {
+    } elseif ($_POST['password'] !== $_POST['c-password']) { // Displaying error if password and confirmation password do not match
         echo "Password and confirmation password do not match";
     } else {
         $username = $mysqli->real_escape_string($_POST['username']);
@@ -17,7 +17,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         $result = $mysqli->query($checkUsernameQuery);
 
         if ($result->num_rows > 0) {
-            echo "Username already linked to an account";
+            echo "Username already linked to an account"; // Displaying error if username already exists
         } else {
             $name = $mysqli->real_escape_string($_POST['name']);
             $last_name = $mysqli->real_escape_string($_POST['l-name']);
@@ -31,10 +31,10 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 
             if ($res === true) {
                 echo "<script>alert('Registration successful!');</script>";
-                header("Location: login.php");
+                header("Location: login.php"); // Redirecting to login page after successful registration
             } else {
                 echo "<script>alert('Registration failed!');</script>";
-                header("Location: login.php");
+                header("Location: login.php"); // Redirecting to login page if registration fails
             }
         }
     }

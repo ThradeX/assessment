@@ -3,17 +3,17 @@ include('./database/connection.php');
 
 require_once './components/header.php';
 
-if (!isset($_SESSION['quantity'])) {
-    $_SESSION['quantity'] = array();
+if (!isset($_SESSION['quantity'])) { // Checking if the 'quantity' session variable is set.
+    $_SESSION['quantity'] = array(); // Initializing 'quantity' session variable if not set.
 }
 
-$inIds = '';
+$inIds = ''; // Initializing a variable to store the comma-separated list of show IDs.
 
-if (isset($_COOKIE['cart'])) {
-    $showIds = json_decode($_COOKIE['cart'], true);
+if (isset($_COOKIE['cart'])) { // Checking if the 'cart' cookie is set.
+    $showIds = json_decode($_COOKIE['cart'], true); // Decoding the 'cart' cookie value to retrieve show IDs.
 
-    if (!empty($showIds)) {
-        $inIds = implode(',', array_map('intval', $showIds));
+    if (!empty($showIds)) { // Checking if the list of show IDs is not empty.
+        $inIds = implode(',', array_map('intval', $showIds)); // Converting show IDs to comma-separated string for SQL query.
 ?>
 
 
@@ -26,19 +26,19 @@ if (isset($_COOKIE['cart'])) {
      <link rel="stylesheet" href="./style/checkout.css">
 
      <script>
-        function removeItem(showId) {
+        function removeItem(showId) { // Function to remove an item from the cart.
             var xhr = new XMLHttpRequest();
             xhr.open('GET', './components/remove-item.php?showId=' + showId, true);
             xhr.onload = function() {
                 if (xhr.status == 200) {
                     console.log(xhr.responseText);
-                    location.reload();
+                    location.reload(); // Reloading the page after removing an item.
                 }
             };
             hr.send();x
         }
 
-        function redirectToPayment(totalAmount) {
+        function redirectToPayment(totalAmount) { // Function to redirect to payment page with show IDs, quantities, and total amount.
             var showIds = JSON.parse('<?php echo json_encode($showIds); ?>');
             var quantities = JSON.parse('<?php echo json_encode($_SESSION['quantity']); ?>');
             var queryString = '';
@@ -47,22 +47,22 @@ if (isset($_COOKIE['cart'])) {
             showIds.forEach(function(showId, index) {
                 queryString += 'showIds[]=' + showId + '&quantity[]=' + quantities[showId];
                 if (index < showIds.length - 1) {
-                    queryString += '&'; // Adiciona '&' para separar os parâmetros
+                    queryString += '&'; // Adding '&' to separate parameters.
                 }
             });
 
-            queryString += '&totalAmount=' + totalAmount; // Adiciona o totalAmount à queryString
+            queryString += '&totalAmount=' + totalAmount; // Adding total amount to the query string.
 
-            window.location.href = 'payment.php?' + queryString;
+            window.location.href = 'payment.php?' + queryString; // Redirecting to payment page with query string.
         }
 
-        function updateQuantity(showId, newQuantity) {
+        function updateQuantity(showId, newQuantity) { // Function to update the quantity of a show in the cart.
             var xhr = new XMLHttpRequest();
             xhr.open('GET', './components/update-quantity.php?showId=' + showId + '&quantity=' + newQuantity, true);
             xhr.onload = function() {
                 if (xhr.status == 200) {
-                    console.log(xhr.responseText); // Exibir a resposta do servidor (opcional)
-                    location.reload(); // Recarregar a página para refletir a atualização da quantidade
+                    // console.log(xhr.responseText);
+                    location.reload(); // Reloading the page to reflect quantity update.
                 }
             };
             xhr.send();
@@ -74,12 +74,12 @@ if (isset($_COOKIE['cart'])) {
     <div class="checkout-content">
     <h1>Your Cart</h1>
         <?php
-        $totalCartAmount = 0; // Variável para armazenar o total geral do carrinho
+        $totalCartAmount = 0; // Variable to store the total cart amount.
 
         $sql = "SELECT *, (s.max_tickets - s.bought) AS available_tickets FROM shows s WHERE s.id_show IN ($inIds)";
         $res = $mysqli->query($sql);
 
-        // Loop para exibir os shows no carrinho
+        // Loop to display shows in the cart.
         while ($row = $res->fetch_assoc()) {
             $showId = $row['id_show'];
             $quantity = isset($_SESSION['quantity'][$showId]) ? $_SESSION['quantity'][$showId] : 0;
@@ -129,7 +129,7 @@ if (isset($_COOKIE['cart'])) {
 
 <?php
     }
-} else {
+} else { // Displaying a message if the cart is empty.
     echo '
     <div class="empty-cart">
         <h1 style="margin-top: 50px; margin-bottom: 30px; color: #2741B2; font-size: 4em; text-align: center">Your Cart</h1>

@@ -2,8 +2,6 @@
     display: flex;
     justify-content: center;
     height: calc(100vh - 100px);
-    /* background-color: aqua; */
-    /* padding-bottom: 100px; */
 }
 
 .login-content {
@@ -14,15 +12,12 @@
     padding: 10px;
     border-radius: 50px;
     display: flex;
-    /* flex-direction: column; */
-    /* justify-content: space-around; */
     align-items: center;
     color: #fff;
     text-align: center;
 }
 
 .login-img {
-    /* background-color: beige; */
     height: 100%;
     width: 50%;
 }
@@ -32,7 +27,6 @@
 }
 
 .login-fields {
-    /* background-color: chocolate; */
     height: 100%;
     width: 50%;
     display: flex;

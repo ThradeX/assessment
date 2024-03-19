@@ -2,8 +2,6 @@
     display: flex;
     justify-content: center;
     height: calc(100vh);
-    /* background-color: aqua; */
-    /* padding-bottom: 100px; */
 }
 
 .register-content {
@@ -14,9 +12,6 @@
     margin: auto;
     padding: 10px;
     border-radius: 50px;
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* justify-content: space-around; */
     align-items: center;
     color: #fff;
     text-align: center;

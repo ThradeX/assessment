@@ -5,34 +5,34 @@ require_once './components/header.php';
 <?php
 include('./database/connection.php');
 
-if (isset($_POST['username']) && isset($_POST['password'])) {
+if (isset($_POST['username']) && isset($_POST['password'])) { // Checking if username and password are set in the POST request
 
-    $username = $mysqli->real_escape_string($_POST['username']);
-    $password = $mysqli->real_escape_string($_POST['password']);
+    $username = $mysqli->real_escape_string($_POST['username']); // Escaping username to prevent SQL injection
+    $password = $mysqli->real_escape_string($_POST['password']); // Escaping password to prevent SQL injection
 
-    if (empty($username)) {
+    if (empty($username)) { // Displaying error message if username is empty
         echo "Inform the Username";
-    } else if (empty($password)) {
+    } else if (empty($password)) { // Displaying error message if password is empty
         echo "Inform the Password";
     } else {
         $sql_code = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
         $sql_query = $mysqli->query($sql_code) or die("SQL code execution failed: " . $mysqli->error);
 
-        $quantity = $sql_query->num_rows;
+        $quantity = $sql_query->num_rows; // Getting the number of rows returned by the query
 
-        if ($quantity == 1) {
-            $user = $sql_query->fetch_assoc();
+        if ($quantity == 1) { // If one row is returned, indicating successful login
+            $user = $sql_query->fetch_assoc(); // Fetching the user data from the query result
 
             if (!isset($_SESSION)) {
-                session_start();
+                session_start(); // Starting the session if not already started
             }
 
-            $_SESSION['id'] = $user['id_user'];
-            $_SESSION['name'] = $user['first_name'];
+            $_SESSION['id'] = $user['id_user']; // Storing user ID in session
+            $_SESSION['name'] = $user['first_name']; // Storing user's first name in session
 
-            header("Location: index.php");
+            header("Location: index.php"); // Redirecting to index.php after successful login
         } 
-        else {
+        else { // Displaying error message for incorrect credentials
             echo "Incorrect Credentials";
         }
     }

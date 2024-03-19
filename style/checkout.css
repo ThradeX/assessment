@@ -1,5 +1,4 @@
 .checkout-content {
-    /* background-color: beige; */
     width: 70%;
     margin: auto;
     display: flex;
@@ -34,12 +33,7 @@ h1 {
 .info-rows {
     width: 100%;
     display: flex;
-    /* justify-content: space-around; */
 }
-
-/* .info-rows p {
-    text-align: center;
-} */
 
 .id-row {
     width: 10%;

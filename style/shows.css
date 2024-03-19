@@ -45,11 +45,9 @@
 .search {
     display: flex;
     align-items: center;
-    /* cursor: pointer; */
     background-color: #fff;
     border-radius: 1rem;
     padding: 4px 6px;
-    /* gap: 8px; */
     margin: auto;
     width: 40%;
 }
@@ -102,7 +100,6 @@
     overflow: hidden;
     cursor: pointer;
     background: linear-gradient(45deg, #2741B2, #5271FD);
-    /* color: #fff; */
     position: relative;
     text-decoration: none;
     color: #fff;
@@ -153,16 +150,12 @@
 
 .card-image img {
     width: 100%;
-    /* height: 100%; */
 }
 
 .card-title {
-    /* height: 53%; */
     display: flex;
     flex-direction: column;
-    /* justify-content: space-between; */
     padding: 10px;
-    /* color: #fff; */
 }
 
 .card-title .title {
@@ -174,7 +167,6 @@
 .card-title .artist {
     text-align: center;
     margin: 0;
-    /* font-size: 20px; */
 }
 
 .card-title p {

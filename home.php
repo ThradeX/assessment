@@ -1,7 +1,7 @@
 <?php
 require_once './components/header.php';
 
-$genres = array(
+$genres = array( // Initializing an array of music genres with their respective images.
     array("name" => "Rock", "image" => "./images/rock.jpg"),
     array("name" => "Rap", "image" => "./images/rap.jpg"),
     array("name" => "Pop", "image" => "./images/pop.jpg"),
@@ -23,10 +23,10 @@ $genres = array(
         <div class="home-content">
             <div class="cards">
                 <?php
-                    foreach ($genres as $genre) {
-                        $genreName = $genre["name"];
-                        $backgroundImage = $genre['image'];
-                        include './components/card-home.php';
+                    foreach ($genres as $genre) { // Iterating through each genre in the array.
+                        $genreName = $genre["name"]; // Storing the genre name.
+                        $backgroundImage = $genre['image']; // Storing the path to the genre's image.
+                        include './components/card-home.php'; // Including the card component for each genre.
                     }
                 ?>
             </div>

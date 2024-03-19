@@ -13,22 +13,20 @@ require_once './components/header.php';
     <link rel="stylesheet" href="./style/complete.css">
 </head>
 <body>
-    <!-- Seu menu de navegação, se necessário -->
-
     <div class="complete-container">
         <?php
-        // Salvar os dados da compra na tabela 'purchases'
-        if (isset($_SESSION['id'])) {
+        // Saving purchase data in the 'purchases' table
+        if (isset($_SESSION['id'])) { // Checking if the user is logged in
             $userId = $_SESSION['id'];
-            $totalAmount = $_POST['total_amount']; // Supondo que o valor total seja enviado pelo formulário
-            $paymentOption = $_POST['payment_option']; // Supondo que a opção de pagamento seja enviada pelo formulário
+            $totalAmount = $_POST['total_amount']; // Getting the total amount that is sent via the form
+            $paymentOption = $_POST['payment_option']; // Getting the payment option that is sent via the form
 
-            // Inserir dados da compra na tabela 'purchases'
+            // Inserting purchase data into the 'purchases' table
             $sql = "INSERT INTO purchases (user_id, total_amount, payment_option) VALUES ($userId, $totalAmount, '$paymentOption')";
             $result = $mysqli->query($sql);
 
-            if ($result) {
-                // Exibir a mensagem de sucesso
+            if ($result) { // If insertion is successful
+                // Display success message
                 echo '<h2>CHECKOUT COMPLETE!</h2>';
                 echo '<p>Your payment is successful and the order is now complete.</p>';
 
@@ -36,24 +34,24 @@ require_once './components/header.php';
                     $updateSql = "UPDATE shows SET bought = bought + $quantity WHERE id_show = $showId";
                     $updateResult = $mysqli->query($updateSql);
                     
-                    // Verificar se a atualização foi bem-sucedida
+                    // Checking if update was successful
                     if (!$updateResult) {
-                        // Lidar com o erro, se necessário
+                        // Handling error, if any
                         echo '<h2>Error</h2>';
                         echo '<p>There was an error updating the bought quantity for some shows.</p>';
-                        exit(); // Encerrar o script se ocorrer um erro
+                        exit(); // Exiting the script if error occurs
                     }
                 }
 
-                setcookie('cart', '', time() - 3600, '/');
+                setcookie('cart', '', time() - 3600, '/'); // Clearing the cart cookie after successful purchase
 
             } else {
-                // Tratar caso a inserção na tabela 'purchases' falhe
+                // Handling failure to insert into 'purchases' table
                 echo '<h2>Error</h2>';
                 echo '<p>There was an error processing your order. Please try again later.</p>';
             }
         } else {
-            // O usuário não está logado, redirecione para a página de login
+            // Redirecting to login page if user is not logged in
             header("Location: login.php");
             exit();
         }
@@ -62,9 +60,6 @@ require_once './components/header.php';
             <button><a href="home.php">Close</a></button>
         </div>
     </div>
-
-    <!-- Seu código JavaScript, se necessário -->
-
 </body>
 </html>
 
