@@ -10,6 +10,7 @@ $genres = array( // Initializing an array of music genres with their respective 
 
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

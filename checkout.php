@@ -17,6 +17,7 @@ if (isset($_COOKIE['cart'])) { // Checking if the 'cart' cookie is set.
 ?>
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

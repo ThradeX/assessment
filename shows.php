@@ -3,6 +3,7 @@ include('./database/connection.php');
 
 require_once './components/header.php';
 
+
 $search = isset($_GET['search']) ? $mysqli->real_escape_string($_GET['search']) : ''; // Getting search query from URL and sanitizing it.
 
 $sql = "SELECT * FROM shows WHERE name_show LIKE '%$search%'"; // SQL query to select shows based on search query.

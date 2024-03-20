@@ -19,6 +19,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['name'])) { // Checking if the use
         $phone = $user['phone_number'];
     }
 
+    
     $totalAmount = $_GET['totalAmount'];
 } else {
     // User is not logged in, redirect to login page

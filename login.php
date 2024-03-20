@@ -5,6 +5,7 @@ require_once './components/header.php';
 <?php
 include('./database/connection.php');
 
+
 if (isset($_POST['username']) && isset($_POST['password'])) { // Checking if username and password are set in the POST request
 
     $username = $mysqli->real_escape_string($_POST['username']); // Escaping username to prevent SQL injection
