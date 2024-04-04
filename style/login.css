@@ -26,7 +26,6 @@
     width: 100%;
 }
 
-
 .login-fields {
     height: 100%;
     width: 50%;
@@ -55,7 +54,7 @@
 .login-fields input {
     height: 50px;
     margin: 0;
-    width: 400px;
+    width: 90%;
     border: none;
     border-radius: 30px;
     padding-left: 10px;
@@ -84,4 +83,28 @@
 .login-fields a {
     text-decoration: none;
     color: #fff;
+}
+
+@media screen and (max-width: 860px) {
+    .login-img {
+        display: none;
+    }
+
+    .login-fields {
+        width: 100%;
+    }
+
+    .login-fields h2 {
+        font-size: 60px;
+        margin-bottom: 20px;
+    }
+
+    .form-login {
+        width: 100%;
+    }
+
+    .login-fields input {
+        width: 90%;
+        font-size: 20px;
+    }
 }

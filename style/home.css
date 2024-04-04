@@ -18,12 +18,12 @@
     display: flex;
     justify-content: center;
     align-items: end;
+    text-decoration: none;
 }
 
 .card h2 {
     color: #ffffff;
 }
-
 
 .text-box {
     margin-top: 100px;
@@ -34,4 +34,29 @@
     text-align: center;
     color: #2741b2;
     font-size: 4em;
+}
+
+@media screen and (max-width: 860px) {
+    .home-body {
+        background-position: 300px;
+    }
+
+    .cards {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .card {
+        width: 300px;
+        height: 200px;
+        margin:  5px auto;
+    }
+
+    .text-box {
+        margin-top: 70px;
+    }
+
+    .text-box p {
+        font-size: 3em;
+    }
 }

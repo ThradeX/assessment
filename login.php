@@ -5,7 +5,6 @@ require_once './components/header.php';
 <?php
 include('./database/connection.php');
 
-
 if (isset($_POST['username']) && isset($_POST['password'])) { // Checking if username and password are set in the POST request
 
     $username = $mysqli->real_escape_string($_POST['username']); // Escaping username to prevent SQL injection
@@ -16,7 +15,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) { // Checking if use
     } else if (empty($password)) { // Displaying error message if password is empty
         echo "Inform the Password";
     } else {
-        $sql_code = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
+        $sql_code = "SELECT * FROM users WHERE BINARY username = '$username' AND BINARY password = '$password'";
         $sql_query = $mysqli->query($sql_code) or die("SQL code execution failed: " . $mysqli->error);
 
         $quantity = $sql_query->num_rows; // Getting the number of rows returned by the query

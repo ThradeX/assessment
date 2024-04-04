@@ -35,3 +35,18 @@
     text-decoration: none;
     color: #fff;
 }
+
+@media screen and (max-width: 1100px) {
+    .complete-container h2 {
+        width: 80%;
+        margin: auto;
+        text-align: center;
+        font-size: 50px;
+    }
+
+    .complete-container p {
+        width: 80%;
+        margin: auto;
+        text-align: center;
+    }
+}

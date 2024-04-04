@@ -14,7 +14,7 @@
 form {
     background-color: #2741B2;
     border-radius: 35px;
-    width: 900px;
+    width: 80%;
 }
 
 .form-group {
@@ -22,7 +22,6 @@ form {
     flex-direction: column;
     padding-top: 20px;
 }
-
 
 .form-group label {
     font-size: 35px;
@@ -33,7 +32,7 @@ form {
 .form-group input, select {
     height: 50px;
     margin: auto;
-    width: 400px;
+    width: 50%;
     border: none;
     border-radius: 30px;
     padding-left: 10px;
@@ -56,4 +55,18 @@ form {
     color: #2741b2;
     background-color: #ecaaf0;
     cursor: pointer;
+}
+
+@media screen and (max-width: 860px) {
+    form {
+        width: 90%;
+    }
+
+    .payment-container h1 {
+        text-align: center;
+    }
+
+    .form-group input, select {
+        width: 90%;
+    }
 }

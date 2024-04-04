@@ -1,7 +1,6 @@
 <?php
 require_once './components/header.php';
 
-
 include('./database/connection.php');
 
 if (isset($_POST['username']) && isset($_POST['password'])) { // Checking if form fields are submitted

@@ -4,7 +4,6 @@ include('./database/connection.php');
 require_once './components/header.php';
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

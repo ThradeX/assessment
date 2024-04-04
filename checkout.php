@@ -17,7 +17,6 @@ if (isset($_COOKIE['cart'])) { // Checking if the 'cart' cookie is set.
 ?>
 
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -95,19 +94,19 @@ if (isset($_COOKIE['cart'])) { // Checking if the 'cart' cookie is set.
             
                 <div class="info-rows">
                     <div class="id-row">
-                        <h2>ID</h2>
+                        <h2>ID: &nbsp;</h2>
                         <p class="id">' . $row['id_show'] . '</p>
                     </div>
                     <div class="name-row">
-                        <h2>NAME</h2>
+                        <h2>NAME: &nbsp;</h2>
                         <p class="name">' . $row['name_show'] . '</p>
                     </div>
                     <div class="price-row">
-                        <h2>PRICE</h2>
+                        <h2>PRICE: &nbsp;</h2>
                         <p class="price">$' . $row['price'] . '</p>
                     </div>
                     <div class="quantity-row">
-                        <h2>QUANTITY</h2>
+                        <h2>QUANTITY: &nbsp;</h2>
                         <input type="number" id="quantity_' . $row['id_show'] . '" value="' . $quantity . '" min="1" max="' . $availableTickets . '" onchange="updateQuantity(' . $row['id_show'] . ', this.value)" oninput="validity.valid||(value=``)">
                     </div>
                 </div>

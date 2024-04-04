@@ -3,7 +3,6 @@ include('./database/connection.php');
 
 require_once './components/header.php';
 
-
 $search = isset($_GET['search']) ? $mysqli->real_escape_string($_GET['search']) : ''; // Getting search query from URL and sanitizing it.
 
 $sql = "SELECT * FROM shows WHERE name_show LIKE '%$search%'"; // SQL query to select shows based on search query.
@@ -34,7 +33,7 @@ $qtd = $res->num_rows; // Getting the number of rows returned by the query.
     </script>
 </head>
 <body>
-<section id="courses">
+<section id="shows">
     <div class="container">
         <div class="filter">
             <form class="form-filter" action="" method="GET">
@@ -47,7 +46,7 @@ $qtd = $res->num_rows; // Getting the number of rows returned by the query.
             </form>
 
         </div>
-        <div class="courses-content">
+        <div class="shows-content">
             <div class="card-list-content">
                 <ul class="card-list">
                     <?php
